@@ -1,8 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Employee List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td>@employee.EmployeeId</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.TitleOfCourtesy</td>
+                    <td><a href="@Url.Action("EmployeeOrder",new {employeeId=@employee.EmployeeId})" onclick="">Orders</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 </div>
