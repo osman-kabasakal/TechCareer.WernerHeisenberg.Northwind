@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechCareer.WernerHeisenberg.Northwind.Domain.Context;
+using TechCareer.WernerHeisenberg.Northwind.Dtos;
 using TechCareer.WernerHeisenberg.Northwind.Models;
 
 namespace TechCareer.WernerHeisenberg.Northwind.Controllers;
@@ -17,9 +18,19 @@ public class HomeController : Controller
         _northwindContext = northwindContext;
     }
 
-    public IActionResult Index(int page=0,int pageSize=50)
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Index([FromQuery]int page=0,[FromQuery]int pageSize=50)
     {
-        var employees = _northwindContext.Employees.AsNoTracking().Skip(page * pageSize).Take(pageSize).ToList();
+        var employees = _northwindContext.Employees.AsNoTracking()
+            .Select(employee =>
+                new EmployeeDto()
+                {
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Title = employee.Title,
+                    EmployeeId = employee.EmployeeId,
+                })
+            .Skip(page * pageSize).Take(pageSize).ToList();
         
         return View(new IndexViewModel()
         {
