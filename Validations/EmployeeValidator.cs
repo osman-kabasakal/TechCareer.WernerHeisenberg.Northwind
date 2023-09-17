@@ -8,7 +8,7 @@ public class EmployeeValidator: AbstractValidator<EmployeeDto>
 {
     public EmployeeValidator()
     {
-        RuleFor(x => x.EmployeeId).Empty().WithMessage("EmployeeId boş olmalı.");
+        RuleFor(x => x.EmployeeId).Equal(0).WithMessage("EmployeeId boş olmalı.");
         
         RuleFor(x => x.FirstName).NotEmpty()
             .WithMessage((validationObj)=>$"{validationObj.GetColumnName(x=>x.FirstName)} boş olamaz.")
