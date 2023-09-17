@@ -33,15 +33,12 @@ public static class CommonExtensions
     
     public static MemberInfo GetMemberInfo<T>(Expression<Func<T, object>> expression)
     {
-        switch (expression.Body)
+        return expression.Body switch
         {
-            case MemberExpression memberExpression:
-                return memberExpression.Member;
-            case UnaryExpression unaryExpression:
-                return ((MemberExpression) unaryExpression.Operand).Member;
-            default:
-                throw new ArgumentException("Bilinmeyen tür.");
-        }
+            MemberExpression memberExpression => memberExpression.Member,
+            UnaryExpression unaryExpression => ((MemberExpression)unaryExpression.Operand).Member,
+            _ => throw new ArgumentException("Bilinmeyen tür.")
+        };
     }
     
     public static string GetColumnName<T>(this T? _, Expression<Func<T, object>> expression)
