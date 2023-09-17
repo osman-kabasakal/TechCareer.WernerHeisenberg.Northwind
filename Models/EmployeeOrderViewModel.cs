@@ -1,9 +1,9 @@
 using TechCareer.WernerHeisenberg.Northwind.Domain.Entities;
+using TechCareer.WernerHeisenberg.Northwind.Dtos;
 
 namespace TechCareer.WernerHeisenberg.Northwind.Models;
 
 public class EmployeeOrderViewModel
 {
-    public Employee Employee { get; set; }
-    public List<Order> Orders { get; set; }
+    public List<EmployeeOrderDto> Orders { get; set; }
 }

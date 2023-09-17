@@ -1,0 +1,43 @@
+@model TableViewModel<TechCareer.WernerHeisenberg.Northwind.Dtos.EmployeeOrderDto>
+
+@{
+    ViewData["Title"] = "Employee Orders";
+}
+
+<heisenberg-table host-url="@Url.Action("EmployeeOrders","Home",new {employeeId=ViewContext.HttpContext.Request.RouteValues["employeeId"]})" data="Model.Data" count="Model.Count" page="Model.Page" page-size="Model.PageSize"></heisenberg-table>
+@* <div class="row"> *@
+@*     <div class="col"> *@
+@*         <table class="table"> *@
+@*             <thead> *@
+@*             <tr> *@
+@*                 <th scope="col">#</th> *@
+@*                 <th scope="col">Sipariş Tarihi</th> *@
+@*                 <th scope="col">Sipariş Ülkesi</th> *@
+@*             </tr> *@
+@*             </thead> *@
+@*             <tbody> *@
+@*             @foreach (var employee in Model.Data) *@
+@*             { *@
+@*                 <tr> *@
+@*                     <td>@employee.OrderId</td> *@
+@*                     <td>@employee.OrderDate?.ToString("dd.MM.yyyy")</td> *@
+@*                     <td>@employee.ShipCountry</td> *@
+@*                 </tr> *@
+@*             } *@
+@*             </tbody> *@
+@*         </table> *@
+@*         <nav aria-label="Page navigation example"> *@
+@*             <ul class="pagination justify-content-end"> *@
+@*                 <li class="page-item disabled"> *@
+@*                     <a class="page-link">Previous</a> *@
+@*                 </li> *@
+@*                 <li class="page-item"><a class="page-link" href="#">1</a></li> *@
+@*                 <li class="page-item"><a class="page-link" href="#">2</a></li> *@
+@*                 <li class="page-item"><a class="page-link" href="#">3</a></li> *@
+@*                 <li class="page-item"> *@
+@*                     <a class="page-link" href="#">Next</a> *@
+@*                 </li> *@
+@*             </ul> *@
+@*         </nav> *@
+@*     </div> *@
+@* </div> *@

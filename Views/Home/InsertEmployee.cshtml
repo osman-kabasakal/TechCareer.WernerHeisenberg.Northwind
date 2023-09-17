@@ -1,0 +1,56 @@
+@using TechCareer.WernerHeisenberg.Northwind.Helpers
+@model TechCareer.WernerHeisenberg.Northwind.Dtos.EmployeeDto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    var errorFields = ViewData.ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => (x.Key,x.Value.Errors.Select(e => e.ErrorMessage))).ToDictionary(x => x.Key, x => x.Item2);
+    var validClass = ViewContext.ModelState.IsValid ? "is-valid" : "is-invalid";
+}
+
+@functions{
+
+    void RenderErrorIfExist(string fieldName, Dictionary<string, IEnumerable<string>> errorFields)
+    {
+        if (errorFields.ContainsKey(fieldName))
+        {
+            <div class="invalid-feedback">
+                @foreach (var error in errorFields[fieldName])
+                {
+                    <text>@error</text>
+                }
+            </div>
+        }
+    }
+
+}
+
+
+<form asp-action="InsertEmployee" method="post" >
+    <div class="mb-3">
+
+        @Html.LabelFor(x => x.FirstName, Model.GetColumnName(x=>x.FirstName), new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.FirstName, new { @class = $"form-control {validClass}", placeholder = "İsim giriniz..." })
+        @{
+            RenderErrorIfExist("FirstName", errorFields);
+        }
+        
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(x => x.LastName, Model.GetColumnName(x=>x.LastName), new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.LastName, new { @class = $"form-control {validClass}", placeholder = "Soyisim giriniz..." })
+        @{
+            RenderErrorIfExist("LastName", errorFields);
+        }
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(x => x.Title, Model.GetColumnName(x=>x.Title), new { @class = "form-label" })
+        @Html.TextBoxFor(x => x.Title, new { @class = $"form-control {validClass}", placeholder = "Ünvan giriniz..." })
+        @{
+            RenderErrorIfExist("Title", errorFields);
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
